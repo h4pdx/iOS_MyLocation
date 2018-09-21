@@ -51,12 +51,18 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.startUpdatingLocation()
         */
-        startLocationManager()
+        //startLocationManager()
+        if updatingLocation {
+            stopLocationManager()
+        } else {
+            location = nil
+            lastLocationError = nil
+            startLocationManager()
+        }
         updateLabels()
     }
     
     // MARK: - CLLoactionManagerDelegate
-    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError \(error)")
         
@@ -70,10 +76,27 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let newLocation = locations.last!
+        let newLocation = locations.last! // last valid location
         print("didUpdateLocations \(newLocation)")
-        self.location = newLocation
-        updateLabels()
+        // ignore last results if they are too old (cached)
+        if newLocation.timestamp.timeIntervalSinceNow < -5 {
+            return
+        }
+        // ignore horizontal accuracy if it is below 0
+        if newLocation.horizontalAccuracy < 0 {
+            return
+        }
+        // if this is 1st update, or new location data is more accurate
+        if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy {
+            lastLocationError = nil // clear previous errors
+            location = newLocation // update location
+            // if new location is within desired accuracy, stop looking for new updates
+            if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
+                print("*** We're Done!")
+                stopLocationManager()
+            }
+            updateLabels()
+        }
     }
     
     func showLocationServicesDeniedAlert() {
@@ -89,12 +112,20 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         present(alert, animated: true, completion: nil)
     }
     
+    func configureGetButton() {
+        if updatingLocation {
+            getButton.setTitle("Stop", for: .normal)
+        } else {
+            getButton.setTitle("Get My Location", for: .normal)
+        }
+    }
+    
     func updateLabels() {
         if let location = location {
             latitudeLabel.text = String(format: "%.8f", location.coordinate.latitude)
             longitudeLabel.text = String(format: "%.8f", location.coordinate.longitude)
             tagButton.isHidden = false
-            messageLabel.text = ""
+            messageLabel.text = "" // message label if coordinates were found
         } else {
             latitudeLabel.text = ""
             longitudeLabel.text = ""
@@ -117,6 +148,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             }
             messageLabel.text = statusMessage
         }
+        configureGetButton()
     }
     
     func startLocationManager() {
