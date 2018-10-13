@@ -32,13 +32,41 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     
     var timer: Timer? // global time-out for geocoding
 
+    @IBAction func getLocation() {
+        let authStatus = CLLocationManager.authorizationStatus()
+        if authStatus == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+            return
+        }
+        if authStatus == .denied || authStatus == .restricted {
+            showLocationServicesDeniedAlert()
+            return
+        }
+        /*
+         locationManager.delegate = self
+         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+         locationManager.startUpdatingLocation()
+         */
+        //startLocationManager()
+        if updatingLocation {
+            stopLocationManager()
+        } else {
+            location = nil
+            lastLocationError = nil
+            placemark = nil
+            lastGeocodingError = nil
+            startLocationManager()
+        }
+        updateLabels()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateLabels()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    // MARK: -  Hide navigation bar for main tab
+    // MARK:-  Hide navigation bar for main tab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
@@ -55,35 +83,18 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func getLocation() {
-        let authStatus = CLLocationManager.authorizationStatus()
-        if authStatus == .notDetermined {
-            locationManager.requestWhenInUseAuthorization()
-            return
+    // MARK:- Navigation
+    
+    // pass the placemark(address) and coordinates to the locationdetailVC
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TagLocation" {
+            let controller = segue.destination as! LocationDetailsViewController //casting
+            controller.coordinate = location!.coordinate
+            controller.placemark = placemark //optionals can be assigned to other optionals
         }
-        if authStatus == .denied || authStatus == .restricted {
-            showLocationServicesDeniedAlert()
-            return
-        }
-        /*
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.startUpdatingLocation()
-        */
-        //startLocationManager()
-        if updatingLocation {
-            stopLocationManager()
-        } else {
-            location = nil
-            lastLocationError = nil
-            placemark = nil
-            lastGeocodingError = nil
-            startLocationManager()
-        }
-        updateLabels()
     }
     
-    // MARK: - CLLoactionManagerDelegate
+    // MARK:- CLLoactionManagerDelegate
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError \(error)")
         
