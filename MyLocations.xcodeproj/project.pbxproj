@@ -15,6 +15,7 @@
 		947C11642128838800CD33EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947C11622128838800CD33EA /* Main.storyboard */; };
 		947C11662128838B00CD33EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947C11652128838B00CD33EA /* Assets.xcassets */; };
 		947C11692128838B00CD33EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947C11672128838B00CD33EA /* LaunchScreen.storyboard */; };
+		94F922C32173D42800314412 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F922C22173D42800314412 /* HudView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		947C11652128838B00CD33EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		947C11682128838B00CD33EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		947C116A2128838B00CD33EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94F922C22173D42800314412 /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HudView.swift; path = "MyLocations/View Controllers/HudView.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				9471C86D216C54050030D0F1 /* LocationDetailsViewController.swift */,
 				9456D19E21718A7A0088897A /* CategoryPickerViewController.swift */,
 				947C11602128838800CD33EA /* SecondViewController.swift */,
+				94F922C22173D42800314412 /* HudView.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			files = (
 				9471C86E216C54050030D0F1 /* LocationDetailsViewController.swift in Sources */,
 				947C11612128838800CD33EA /* SecondViewController.swift in Sources */,
+				94F922C32173D42800314412 /* HudView.swift in Sources */,
 				947C115D2128838800CD33EA /* AppDelegate.swift in Sources */,
 				9456D19F21718A7A0088897A /* CategoryPickerViewController.swift in Sources */,
 				947C115F2128838800CD33EA /* CurrentLocationViewController.swift in Sources */,

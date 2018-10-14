@@ -86,6 +86,7 @@ class CategoryPickerViewController: UITableViewController {
         if segue.identifier == "PickedCategory" {
             let cell = sender as! UITableViewCell
             if let indexPath = tableView.indexPath(for: cell) {
+                // pass the selected row back on thr segue unwind
                 selectedCategoryName = categories[indexPath.row]
             }
         }

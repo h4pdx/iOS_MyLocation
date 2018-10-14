@@ -37,7 +37,9 @@ class LocationDetailsViewController: UITableViewController {
     }
     
     @IBAction func done() {
-        navigationController?.popViewController(animated: true)
+        let hudView = HudView.hud(inView: navigationController!.view, animated: true)
+        hudView.text = "Tagged"
+        //navigationController?.popViewController(animated: true)
     }
     
     @IBAction func categoryPickerDidPickCategory(_ segue: UIStoryboardSegue) {
@@ -62,9 +64,34 @@ class LocationDetailsViewController: UITableViewController {
         }
         
         dateLabel.text = format(date: Date())
+        
+        // create tap recognizer object
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        gestureRecognizer.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(gestureRecognizer) // waits for tap to occur
     }
     
-    //MARK:- Navigation
+    // MARK:- Table View Delegates
+    
+    // Limit taps to only first two sections of table
+    override func tableView(_ tableView: UITableView,
+                            willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if indexPath.section == 0 || indexPath.section == 1 {
+            return indexPath
+        } else {
+            return nil
+        }
+    }
+    
+    // bring up keyboard if user taps anywhere in first section (description)
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            descriptionTextView.becomeFirstResponder()
+        }
+    }
+    
+    // MARK:- Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PickCategory" {
@@ -72,7 +99,7 @@ class LocationDetailsViewController: UITableViewController {
             controller.selectedCategoryName = categoryName
         }
     }
-
+    
     // MARK:- Helper Methods
     func string(from placemark: CLPlacemark) -> String {
         var text = ""
@@ -102,5 +129,18 @@ class LocationDetailsViewController: UITableViewController {
         return dateFormatter.string(from: date)
     }
     
+    
+    // MARK:- Objective-C selectors
+    @objc func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer) {
+        // tell where on screen tap happened
+        let point = gestureRecognizer.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        // keep keyboard up if the cell tapped is the place where we can type
+        if indexPath != nil && indexPath!.section == 0 && indexPath!.row == 0 {
+            return
+        }
+        // if we didnt return early, hide the keyboard
+        descriptionTextView.resignFirstResponder()
+    }
 
 }
