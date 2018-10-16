@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9456D19F21718A7A0088897A /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9456D19E21718A7A0088897A /* CategoryPickerViewController.swift */; };
+		946ADB5121755ED300141113 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946ADB5021755ED300141113 /* Functions.swift */; };
 		9471C86E216C54050030D0F1 /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9471C86D216C54050030D0F1 /* LocationDetailsViewController.swift */; };
 		947C115D2128838800CD33EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C115C2128838800CD33EA /* AppDelegate.swift */; };
 		947C115F2128838800CD33EA /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C115E2128838800CD33EA /* CurrentLocationViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		9456D19E21718A7A0088897A /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
+		946ADB5021755ED300141113 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		9471C86D216C54050030D0F1 /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
 		947C11592128838800CD33EA /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		947C115C2128838800CD33EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			children = (
 				947C115E2128838800CD33EA /* CurrentLocationViewController.swift */,
 				9471C86D216C54050030D0F1 /* LocationDetailsViewController.swift */,
+				946ADB5021755ED300141113 /* Functions.swift */,
 				9456D19E21718A7A0088897A /* CategoryPickerViewController.swift */,
 				947C11602128838800CD33EA /* SecondViewController.swift */,
 				94F922C22173D42800314412 /* HudView.swift */,
@@ -167,6 +170,7 @@
 				9471C86E216C54050030D0F1 /* LocationDetailsViewController.swift in Sources */,
 				947C11612128838800CD33EA /* SecondViewController.swift in Sources */,
 				94F922C32173D42800314412 /* HudView.swift in Sources */,
+				946ADB5121755ED300141113 /* Functions.swift in Sources */,
 				947C115D2128838800CD33EA /* AppDelegate.swift in Sources */,
 				9456D19F21718A7A0088897A /* CategoryPickerViewController.swift in Sources */,
 				947C115F2128838800CD33EA /* CurrentLocationViewController.swift in Sources */,

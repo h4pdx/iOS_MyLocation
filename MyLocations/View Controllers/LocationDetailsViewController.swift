@@ -40,12 +40,8 @@ class LocationDetailsViewController: UITableViewController {
         let hudView = HudView.hud(inView: navigationController!.view, animated: true)
         hudView.text = "Tagged"
         // delay to display checkmark before exiting screen
-        let delayInSeconds = 0.6
-        DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds,
-                                      execute: {
-                                        hudView.hide()
-                                        self.navigationController?.popViewController(animated: true)})
-        //navigationController?.popViewController(animated: true)
+        let delayTime = 0.6
+        afterDelay(delayTime) {hudView.hide(); self.navigationController?.popViewController(animated: true)}
     }
     
     @IBAction func categoryPickerDidPickCategory(_ segue: UIStoryboardSegue) {
