@@ -24,6 +24,11 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     var location: CLLocation?
     var updatingLocation = false
     var lastLocationError: Error?
+    
+    let geocoder = CLGeocoder()
+    var placemark: CLPlacemark?
+    var prefromingReverseGeocoding = false
+    var lastGeocodingError: Error?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +92,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             return
         }
         // if this is 1st update, or new location data is more accurate
+        // logical || here will force unwrap only if location is not nil aka "short circuiting"
         if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy {
             lastLocationError = nil // clear previous errors
             location = newLocation // update location

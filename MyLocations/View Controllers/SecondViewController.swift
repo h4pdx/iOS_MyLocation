@@ -12,6 +12,7 @@ class SecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Oh hey, you're on the second screen. It's empty here...")
         // Do any additional setup after loading the view, typically from a nib.
     }
 
