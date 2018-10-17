@@ -126,6 +126,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             distance = newLocation.distance(from: location)
         }
         // if this is 1st update, or new location data is more accurate
+        // logical || here will force unwrap only if location is not nil aka "short circuiting"
         if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy {
             lastLocationError = nil // clear previous errors
             location = newLocation // update location
