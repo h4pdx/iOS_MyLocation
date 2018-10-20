@@ -49,13 +49,11 @@ class CategoryPickerViewController: UITableViewController {
     }
     
     // MARK:- Table View Delegates
-    override func tableView(_ tableView: UITableView,
-                            numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
     
-    override func tableView(_ tableView: UITableView,
-                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // reuse identifier defined in sotoryboard- prototype cells
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let categoryName = categories[indexPath.row]

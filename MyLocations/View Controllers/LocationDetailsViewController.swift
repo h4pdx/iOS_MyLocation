@@ -76,8 +76,7 @@ class LocationDetailsViewController: UITableViewController {
     // MARK:- Table View Delegates
     
     // Limit taps to only first two sections of table
-    override func tableView(_ tableView: UITableView,
-                            willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.section == 0 || indexPath.section == 1 {
             return indexPath
         } else {
@@ -86,11 +85,11 @@ class LocationDetailsViewController: UITableViewController {
     }
     
     // bring up keyboard if user taps anywhere in first section (description)
-    override func tableView(_ tableView: UITableView,
-                            didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 0 {
             descriptionTextView.becomeFirstResponder()
         }
+        tableView.deselectRow(at: indexPath, animated: true) // un-highlight after tap
     }
     
     // MARK:- Navigation
