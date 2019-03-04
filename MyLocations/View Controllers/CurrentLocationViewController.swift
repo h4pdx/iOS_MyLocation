@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -31,6 +32,8 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     var lastGeocodingError: Error?
     
     var timer: Timer? // global time-out for geocoding
+    
+    var managedObjectContext: NSManagedObjectContext!
 
     @IBAction func getLocation() {
         let authStatus = CLLocationManager.authorizationStatus()
@@ -91,6 +94,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             let controller = segue.destination as! LocationDetailsViewController //casting
             controller.coordinate = location!.coordinate
             controller.placemark = placemark //optionals can be assigned to other optionals
+            controller.managedObjectContext = self.managedObjectContext
         }
     }
     

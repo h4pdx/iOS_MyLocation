@@ -7,15 +7,42 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    // Mark: - Core Data Stack
+    
+    // Load SQLite database
+    // NSOManagedObjectContext object
+    // loads databse into memeory and initializes Core Data Stack
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "DataModel")
+        container.loadPersistentStores(completionHandler: {
+            (storeDescription, error) in
+            if let error = error {
+                fatalError("Could not load data store: \(error)")
+            }
+        })
+        return container
+    }()
+    
+    lazy var managedObjectContext: NSManagedObjectContext = self.persistentContainer.viewContext
 
-
+    // work down through the view hierarchy
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let tabController = window!.rootViewController as! UITabBarController // cast var as Tab Bar controller
+        // find the first element in the the tab bar array
+        if let tabViewControllers = tabController.viewControllers {
+            let navController = tabViewControllers[0] as! UINavigationController // embedded nav stack lives at tab bar array first index
+            let controller = navController.viewControllers.first as! CurrentLocationViewController // first view in the nav stack
+            controller.managedObjectContext = self.managedObjectContext // initialzes the lazy var declared above
+        }
+        print(applicationDocumentDirectory) // print to console folde path
         return true
     }
 

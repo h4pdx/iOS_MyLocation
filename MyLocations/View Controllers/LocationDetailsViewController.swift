@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreLocation
-
+import CoreData
 
 //MARK:- private global constant
 // only call one instance of this obj
@@ -31,6 +31,8 @@ class LocationDetailsViewController: UITableViewController {
     var placemark: CLPlacemark?
     
     var categoryName = "No Category"
+    
+    var managedObjectContext: NSManagedObjectContext!
     
     @IBAction func cancel() {
         navigationController?.popViewController(animated: true)

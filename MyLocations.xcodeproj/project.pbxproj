@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9442050C217D41850090C689 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9442050A217D41850090C689 /* DataModel.xcdatamodeld */; };
 		9456D19F21718A7A0088897A /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9456D19E21718A7A0088897A /* CategoryPickerViewController.swift */; };
 		946ADB5121755ED300141113 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946ADB5021755ED300141113 /* Functions.swift */; };
 		9471C86E216C54050030D0F1 /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9471C86D216C54050030D0F1 /* LocationDetailsViewController.swift */; };
@@ -17,9 +18,12 @@
 		947C11662128838B00CD33EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947C11652128838B00CD33EA /* Assets.xcassets */; };
 		947C11692128838B00CD33EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947C11672128838B00CD33EA /* LaunchScreen.storyboard */; };
 		94F922C32173D42800314412 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F922C22173D42800314412 /* HudView.swift */; };
+		94FBF59C221B76A6000BDF6E /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBF59A221B76A6000BDF6E /* Location+CoreDataClass.swift */; };
+		94FBF59D221B76A6000BDF6E /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBF59B221B76A6000BDF6E /* Location+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9442050B217D41850090C689 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		9456D19E21718A7A0088897A /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
 		946ADB5021755ED300141113 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		9471C86D216C54050030D0F1 /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
@@ -32,6 +36,8 @@
 		947C11682128838B00CD33EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		947C116A2128838B00CD33EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94F922C22173D42800314412 /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HudView.swift; path = "MyLocations/View Controllers/HudView.swift"; sourceTree = SOURCE_ROOT; };
+		94FBF59A221B76A6000BDF6E /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		94FBF59B221B76A6000BDF6E /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,8 @@
 		947C115B2128838800CD33EA /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
+				94FBF59A221B76A6000BDF6E /* Location+CoreDataClass.swift */,
+				94FBF59B221B76A6000BDF6E /* Location+CoreDataProperties.swift */,
 				947C116A2128838B00CD33EA /* Info.plist */,
 				947C115C2128838800CD33EA /* AppDelegate.swift */,
 				947C1170212883B400CD33EA /* View Controllers */,
@@ -91,6 +99,7 @@
 				947C11622128838800CD33EA /* Main.storyboard */,
 				947C11672128838B00CD33EA /* LaunchScreen.storyboard */,
 				947C11652128838B00CD33EA /* Assets.xcassets */,
+				9442050A217D41850090C689 /* DataModel.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -168,11 +177,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9471C86E216C54050030D0F1 /* LocationDetailsViewController.swift in Sources */,
+				9442050C217D41850090C689 /* DataModel.xcdatamodeld in Sources */,
 				947C11612128838800CD33EA /* SecondViewController.swift in Sources */,
 				94F922C32173D42800314412 /* HudView.swift in Sources */,
 				946ADB5121755ED300141113 /* Functions.swift in Sources */,
 				947C115D2128838800CD33EA /* AppDelegate.swift in Sources */,
+				94FBF59D221B76A6000BDF6E /* Location+CoreDataProperties.swift in Sources */,
 				9456D19F21718A7A0088897A /* CategoryPickerViewController.swift in Sources */,
+				94FBF59C221B76A6000BDF6E /* Location+CoreDataClass.swift in Sources */,
 				947C115F2128838800CD33EA /* CurrentLocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +332,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5A49G264LU;
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -338,6 +351,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5A49G264LU;
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -371,6 +385,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9442050A217D41850090C689 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9442050B217D41850090C689 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 9442050B217D41850090C689 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 947C11512128838800CD33EA /* Project object */;
 }
