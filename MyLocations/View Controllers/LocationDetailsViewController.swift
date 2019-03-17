@@ -19,6 +19,7 @@ private let dateFormatter: DateFormatter = {
     return formatter
 }()
 
+// MARK:- View Controller class declaration
 class LocationDetailsViewController: UITableViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -29,6 +30,7 @@ class LocationDetailsViewController: UITableViewController {
     // this screen will never be tapped unless there is a valid coordinate object
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
+    var date = Date()
     
     var categoryName = "No Category"
     
@@ -42,8 +44,30 @@ class LocationDetailsViewController: UITableViewController {
         let hudView = HudView.hud(inView: navigationController!.view, animated: true)
         hudView.text = "Tagged"
         // delay to display checkmark before exiting screen
-        let delayTime = 0.6
-        afterDelay(delayTime) {hudView.hide(); self.navigationController?.popViewController(animated: true)}
+        
+        // Instantiate CoreData Obejct; save location details from ViewController
+        let location = Location(context: managedObjectContext)
+        location.locationDescription = descriptionTextView.text
+        location.category = self.categoryName
+        location.date = self.date
+        location.latitude = self.coordinate.latitude
+        location.longitude = self.coordinate.longitude
+        location.placemark = self.placemark
+        
+        // attempt to save to managedContextObj
+        do {
+            try managedObjectContext.save()
+            // Show HUD pop-up only if save successful
+            let delayTime = 0.6
+            afterDelay(delayTime) {
+                hudView.hide();
+                self.navigationController?.popViewController(animated: true)
+            }
+        } catch {
+            // do i really want to kill the whole app if Save() fails?
+            // maybe come up with a if/else tree here
+            fatalCoreDataError(error)
+        }
     }
     
     @IBAction func categoryPickerDidPickCategory(_ segue: UIStoryboardSegue) {
@@ -56,7 +80,7 @@ class LocationDetailsViewController: UITableViewController {
         super.viewDidLoad()
         
         descriptionTextView.text = ""
-        categoryLabel.text = categoryName
+        self.categoryLabel.text = self.categoryName
         
         latitudeLabel.text = String(format: "%.8f", coordinate.latitude)
         longitudeLabel.text = String(format: "%.8f", coordinate.longitude)
@@ -67,7 +91,7 @@ class LocationDetailsViewController: UITableViewController {
             addressLabel.text = "No Address Found"
         }
         
-        dateLabel.text = format(date: Date())
+        dateLabel.text = format(date: self.date)
         
         // create tap recognizer object
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

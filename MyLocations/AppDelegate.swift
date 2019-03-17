@@ -42,7 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let controller = navController.viewControllers.first as! CurrentLocationViewController // first view in the nav stack
             controller.managedObjectContext = self.managedObjectContext // initialzes the lazy var declared above
         }
-        print(applicationDocumentDirectory) // print to console folde path
+        print(applicationDocumentDirectory) // print to console folder path
+        listenForFatlaCoreDataNotifications()
         return true
     }
 
@@ -68,6 +69,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    // MARK:- Helper Methods
+    
+    func listenForFatlaCoreDataNotifications() {
+        // i want to be notified whenever a CoreDataSaveFailed noti is posted
+        NotificationCenter.default.addObserver(forName: CoreDataSaveFailedNotification, object: nil, queue: OperationQueue.main, using: {
+            (notification) in
+            // multiline string
+            let message = """
+            There was a fatal error in the app and it cannot continue.
+            Press OK to terminate the app. Sorry for the inconvenience.
+            """
+            // create an alert controller to show the error message
+            let alert = UIAlertController(title: "Internal Error", message: message, preferredStyle: .alert)
+            // add an action for the new alert pop-up
+            let action = UIAlertAction(title: "OK", style: .default) { _ in
+                // creates an Exception object instead of calling fatalError()
+                let exception = NSException(
+                    name: NSExceptionName.internalInconsistencyException,
+                    reason: "Fatal Core Data error", userInfo: nil)
+                exception.raise()
+            }
+            alert.addAction(action)
+            // use the root view controller of the app since its visible at all times
+            let tabController = self.window!.rootViewController!
+            tabController.present(alert, animated: true, completion: nil)
+        })
+    }
 
 }
 
