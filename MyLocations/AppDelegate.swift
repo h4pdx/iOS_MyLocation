@@ -13,7 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+    lazy var managedObjectContext: NSManagedObjectContext = self.persistentContainer.viewContext
     // Mark: - Core Data Stack
     
     // Load SQLite database
@@ -30,17 +30,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
     
-    lazy var managedObjectContext: NSManagedObjectContext = self.persistentContainer.viewContext
 
     // work down through the view hierarchy
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let tabController = window!.rootViewController as! UITabBarController // cast var as Tab Bar controller
+        let tabController = window!.rootViewController as! UITabBarController; // cast var as Tab Bar controller
         // find the first element in the the tab bar array
         if let tabViewControllers = tabController.viewControllers {
-            let navController = tabViewControllers[0] as! UINavigationController // embedded nav stack lives at tab bar array first index
-            let controller = navController.viewControllers.first as! CurrentLocationViewController // first view in the nav stack
-            controller.managedObjectContext = self.managedObjectContext // initialzes the lazy var declared above
+            // Tab 1
+            var navController = tabViewControllers[0] as! UINavigationController; // embedded nav stack lives at tab bar array first index
+            let controller1 = navController.viewControllers.first as! CurrentLocationViewController; // first view in the nav stack
+            controller1.managedObjectContext = self.managedObjectContext; // initialzes the lazy var declared above
+            // Tab 2
+            navController = tabViewControllers[1] as! UINavigationController;
+            let controller2 = navController.viewControllers.first as! LocationsViewController;
+            controller2.managedObjectContext = self.managedObjectContext;
+            //let _ = controller2.view;
         }
         print(applicationDocumentDirectory) // print to console folder path
         listenForFatlaCoreDataNotifications()
