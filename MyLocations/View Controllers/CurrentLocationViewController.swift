@@ -179,6 +179,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             if timeInterval > 10 {
                 print("*** Force done!")
                 stopLocationManager()
+                self.performingReverseGeocoding = false // timeout seemed to not be working
                 updateLabels()
             }
         }
